@@ -29,7 +29,7 @@ const LoginPage = ({ onLogin }) => {
 
     return (
         <div>
-            <h2>Logare</h2>
+            <h2>Login</h2>
             <div>
                 <label>Utilizator:</label>
                 <input
@@ -48,8 +48,8 @@ const LoginPage = ({ onLogin }) => {
                     onKeyPress={handleKeyPress}
                 />
             </div>
-            <button onClick={handleLogin}>Logare</button>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            <button onClick={handleLogin}>Login</button>
+          
         </div>
     );
 };

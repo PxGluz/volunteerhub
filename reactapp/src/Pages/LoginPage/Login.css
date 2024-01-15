@@ -1,10 +1,8 @@
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-.login-form {
-    padding: 2em;
+﻿/* Adaugă aceste stiluri în fișierul Login.css sau într-un fișier CSS separat */
+button {
+    color: black;
+    border: 1px solid black; /* Adaugă o margine de 1px, poți ajusta grosimea după preferință */
+    padding: 10px 20px; /* Adaugă spațiu în jurul textului butonului */
+    border-radius: 5px; /* Adaugă colțuri rotunjite, poți ajusta după preferință */
+    cursor: pointer; /* Transformă cursorul la hover într-o mână pentru a indica faptul că butonul este interactiv */
 }
