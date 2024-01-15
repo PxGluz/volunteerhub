@@ -1,4 +1,5 @@
-﻿public class User
+﻿namespace webapi.Models;
+public class User
 {
     public int UserId { get; set; }
 

@@ -1,4 +1,5 @@
-﻿public class Event
+﻿namespace webapi.Models;
+public class Event
 {
     public int EventId { get; set; }
     

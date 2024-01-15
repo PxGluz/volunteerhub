@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using webapi.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,8 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<ApplicationDbContext>();
 
 var app = builder.Build();
 
@@ -36,6 +36,8 @@ app.MapGet("/weatherforecast", () =>
             summaries[Random.Shared.Next(summaries.Length)]
         ))
         .ToArray();
+    // get all users from the database
+    
     return forecast;
 })
 .WithName("GetWeatherForecast")
