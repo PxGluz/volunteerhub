@@ -1,9 +1,11 @@
-﻿using webapi.Models;
+﻿using Microsoft.AspNetCore.Cors;
+using webapi.Models;
 using webapi.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace webapi.Controllers;
 
+[EnableCors("AllowAll")]
 [ApiController]
 [Route("api/[controller]")]
 public class UserController : ControllerBase
