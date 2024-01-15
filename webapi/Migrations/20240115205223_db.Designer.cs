@@ -12,8 +12,8 @@ using webapi.Data;
 namespace webapi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240114220453_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20240115205223_db")]
+    partial class db
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,35 +24,6 @@ namespace webapi.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("Event", b =>
-                {
-                    b.Property<int>("EventId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EventId"));
-
-                    b.Property<int>("CreatorUserId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("EventId");
-
-                    b.HasIndex("CreatorUserId");
-
-                    b.ToTable("Events");
-                });
 
             modelBuilder.Entity("EventUser", b =>
                 {
@@ -99,7 +70,36 @@ namespace webapi.Migrations
                     b.ToTable("EventAcceptedUsers", (string)null);
                 });
 
-            modelBuilder.Entity("User", b =>
+            modelBuilder.Entity("webapi.Models.Event", b =>
+                {
+                    b.Property<int>("EventId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EventId"));
+
+                    b.Property<int>("CreatorUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("EventId");
+
+                    b.HasIndex("CreatorUserId");
+
+                    b.ToTable("Events");
+                });
+
+            modelBuilder.Entity("webapi.Models.User", b =>
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
@@ -108,10 +108,6 @@ namespace webapi.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
 
                     b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Photo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -127,26 +123,15 @@ namespace webapi.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Event", b =>
-                {
-                    b.HasOne("User", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatorUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Creator");
-                });
-
             modelBuilder.Entity("EventUser", b =>
                 {
-                    b.HasOne("User", null)
+                    b.HasOne("webapi.Models.User", null)
                         .WithMany()
                         .HasForeignKey("ApplicantsUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Event", null)
+                    b.HasOne("webapi.Models.Event", null)
                         .WithMany()
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -155,13 +140,13 @@ namespace webapi.Migrations
 
             modelBuilder.Entity("EventUser1", b =>
                 {
-                    b.HasOne("Event", null)
+                    b.HasOne("webapi.Models.Event", null)
                         .WithMany()
                         .HasForeignKey("Event1EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("User", null)
+                    b.HasOne("webapi.Models.User", null)
                         .WithMany()
                         .HasForeignKey("RejectedUsersUserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -170,17 +155,28 @@ namespace webapi.Migrations
 
             modelBuilder.Entity("EventUser2", b =>
                 {
-                    b.HasOne("User", null)
+                    b.HasOne("webapi.Models.User", null)
                         .WithMany()
                         .HasForeignKey("AcceptedUsersUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Event", null)
+                    b.HasOne("webapi.Models.Event", null)
                         .WithMany()
                         .HasForeignKey("Event2EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("webapi.Models.Event", b =>
+                {
+                    b.HasOne("webapi.Models.User", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Creator");
                 });
 #pragma warning restore 612, 618
         }

@@ -11,14 +11,31 @@ const LoginPage = ({ onLogin }) => {
     const navigate = useNavigate(); // Hook pentru a obține funcția de navigare
 
     const handleLogin = () => {
-        // Simulare funcție de autentificare
-        if (username === '123' && password === '123') {
-            setError('');
-            onLogin(username);
-            navigate('/dashboard'); // Redirecționare către /dashboard după autentificare
-        } else {
-            setError('Nume de utilizator sau parolă incorecte.');
-        }
+        // send login info to localhost:5100/api/user/SignIn
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password }),
+        };
+        fetch('http://localhost:5100/api/user/SignIn', requestOptions)
+            .then(async (response) => {
+                const data = await response.json();
+
+                // Verifică dacă serverul a întors o eroare
+                if (!response.ok) {
+                    // Obțineți eroarea
+                    const error = (data && data.message) || response.status;
+                    return Promise.reject(error);
+                }
+
+                // Actualizează starea cu datele primite de la server
+                onLogin(username);
+                navigate('/dashboard');
+            })
+            .catch((error) => {
+                setError(error.toString());
+                console.error('Există o eroare!', error);
+            });
     };
 
     const handleKeyPress = (e) => {

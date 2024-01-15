@@ -17,13 +17,41 @@ const SignUpPage = ({ onSignUp }) => {
             return;
         }
 
-        // Simulare funcție de înregistrare
-        // Aici ar trebui să utilizezi o logică reală pentru a gestiona înregistrarea
-        // Poți apela onSignUp(username) pentru a seta utilizatorul autentificat
-        onSignUp(username);
+        // send signup info to localhost:5100/api/user/SignUp
+        // get radio button
+        var radios = document.getElementsByName('role');
+        // pick the value of the active radio button
+        var role = 0;
+        for (var i = 0, length = radios.length; i < length; i++) {
+            if (radios[i].checked == true) {
+                role = parseInt(radios[i].value);
+                break;
+            }
+        }
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password, role }),
+        };
+        fetch('http://localhost:5100/api/user/SignUp', requestOptions)
+            .then(async (response) => {
+                const data = await response.json();
 
-        // Redirecționare către pagina de dashboard după înregistrare
-        navigate('/dashboard');
+                // Verifică dacă serverul a întors o eroare
+                if (!response.ok) {
+                    // Obțineți eroarea
+                    const error = (data && data.message) || response.status;
+                    return Promise.reject(error);
+                }
+
+                // Actualizează starea cu datele primite de la server
+                onSignUp(username);
+                navigate('/dashboard');
+            })
+            .catch((error) => {
+                setError(error.toString());
+                console.error('Există o eroare!', error);
+            });
     };
 
     const handleKeyPress = (e) => {
@@ -62,6 +90,14 @@ const SignUpPage = ({ onSignUp }) => {
                     onKeyPress={handleKeyPress}
                 />
             </div>
+            <div>
+                <input type="radio" id="volunteer" name="role" value={1} checked="true" />
+                <label htmlFor="eventPlanner">Voluntar</label>
+                <input type="radio" id="eventPlanner" name="role" value={0} />
+                <label for="eventPlanner">Organizator de evenimente</label>
+            </div>
+            
+            
             <button onClick={handleSignUp}>Înregistrare</button>
             {error && <p style={{ color: 'red' }}>{error}</p>}
         </div>

@@ -7,14 +7,12 @@ public class User
 
     public string Password { get; set; }
 
-    public string Photo { get; set; }
-
     public UserRole Role { get; set; }
 }
 
 public enum UserRole
 {
-    Admin,
     EventPlanner,
-    Volunteer
+    Volunteer,
+    Admin
 }

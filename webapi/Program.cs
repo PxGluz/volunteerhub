@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using webapi.Data;
+using webapi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,6 +52,50 @@ app.MapGet("/api/user/GetUsers", (ApplicationDbContext context) =>
         return users;
     })
     .WithName("GetUsers")
+    .WithOpenApi();
+
+// map the signup endpoint
+app.MapPost("/api/user/SignUp", (ApplicationDbContext context, User user) =>
+    {
+        // check if the username already exists
+        var existingUser = context.Users.FirstOrDefault(u => u.Username == user.Username);
+        if (existingUser != null)
+        {
+            return Results.Conflict("Username already exists");
+        }
+
+        // if the user provided a role greater than 1 return
+        if (user.Role > UserRole.Volunteer)
+        {
+            return Results.Unauthorized();
+        }
+
+        context.Users.Add(user);
+        context.SaveChanges();
+        return Results.Created($"/api/user/SignUp/{user.UserId}", user);
+    })
+    .WithName("SignUp")
+    .WithOpenApi();
+
+// map the signin endpoint
+app.MapPost("/api/user/SignIn", (ApplicationDbContext context, User user) =>
+    {
+        // check if the username exists
+        var existingUser = context.Users.FirstOrDefault(u => u.Username == user.Username);
+        if (existingUser == null)
+        {
+            return Results.NotFound("Username does not exist");
+        }
+
+        // check if the password is correct
+        if (existingUser.Password != user.Password)
+        {
+            return Results.Unauthorized();
+        }
+
+        return Results.Ok(existingUser);
+    })
+    .WithName("SignIn")
     .WithOpenApi();
 
 app.Run();
