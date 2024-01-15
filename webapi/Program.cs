@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using webapi.Data;
 
 var builder = WebApplication.CreateBuilder(args);
