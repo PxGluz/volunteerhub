@@ -1,8 +1,27 @@
 ﻿// LoginPage.jsx
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Login.css'
+import { Button, TextField, Typography, Container, CssBaseline, styled } from '@mui/material';
+
+const StyledContainer = styled(Container)(({ theme }) => ({
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+}));
+
+const StyledForm = styled('form')({
+    width: '100%',
+    marginTop: theme => theme.spacing(1),
+});
+
+const StyledTextField = styled(TextField)({
+    marginBottom: theme => theme.spacing(2),
+});
+
+const StyledButton = styled(Button)({
+    margin: theme => theme.spacing(3, 0, 2),
+});
 
 const LoginPage = ({}) => {
     const [username, setUsername] = useState('');
@@ -46,29 +65,50 @@ const LoginPage = ({}) => {
     };
 
     return (
-        <div>
-            <h2>Login</h2>
+        <StyledContainer component="main" maxWidth="xs">
+            <CssBaseline />
             <div>
-                <label>Utilizator:</label>
-                <input
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    onKeyPress={handleKeyPress}
-                />
+                <Typography component="h1" variant="h5">
+                    Login
+                </Typography>
+                <StyledForm noValidate>
+                    <StyledTextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="username"
+                        label="Username"
+                        name="username"
+                        autoFocus
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                    <StyledTextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        onKeyPress={handleKeyPress}
+                    />
+                    <StyledButton
+                        type="button"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        onClick={handleLogin}
+                    >
+                        Login
+                    </StyledButton>
+                </StyledForm>
             </div>
-            <div>
-                <label>Parolă:</label>
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    onKeyPress={handleKeyPress}
-                />
-            </div>
-            <button onClick={handleLogin}>Login</button>
-          
-        </div>
+        </StyledContainer>
     );
 };
 

@@ -1,41 +1,15 @@
-.event{
-    margin: 10px;
+﻿.eventList, .leaderboard {
+    flex: 1;
+    border: 1px solid #ddd;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 5px #ccc;
-    background-color: #fff;
-    color: #000;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
+    margin-bottom: 10px;
 }
 
-.dashboard{
-    display: flex;
-    justify-content: center;
-    padding: 10px;
+.eventList {
+    /* Elimină margin-right pentru a permite chenarului să se extindă pe întreaga lățime */
 }
 
-.eventList{
-    width: 80%;
-    margin-right: auto;
-}
-
-.leaderboard{
-    width: 20%;
-    margin: 5px;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    text-align: center;
-}
-
-.volunteer{
-    width: 90%;
-    margin: 5px;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    text-align: left;
-    color: black;
-    padding: 5px 10px;
-    box-shadow: 0 0 5px #ccc;
+/* Adaugă o margine între secțiuni */
+.leaderboard {
+    margin-left: 20px;
 }

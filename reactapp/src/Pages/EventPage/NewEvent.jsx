@@ -1,19 +1,38 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import PostChecker from "../../Components/RoleCheckers/PostChecker";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import { Paper, Typography, TextField, Button, Container, CssBaseline, styled } from '@mui/material';
 
-const NewEvent = ({}) => {
+
+
+
+
+const StyledContainer = styled(Container)({
+    marginTop: '20px',
+    marginBottom: '20px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+});
+
+const StyledPaper = styled(Paper)({
+    padding: '20px',
+    maxWidth: '600px',
+    width: '100%',
+    textAlign: 'center',
+});
+
+const NewEvent = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [dateTime, setDateTime] = useState('');
     const navigate = useNavigate();
 
     const authToken = localStorage.getItem('token');
+
     const submitPost = () => {
-        // Format the dateTime as a string in a standard ISO format
         const formattedDateTime = new Date(dateTime).toISOString();
 
-        // send the event data to the server at localhost:5100/api/event/CreateEvent
         fetch('http://localhost:5100/api/event/CreateEvent', {
             method: 'POST',
             headers: {
@@ -23,7 +42,7 @@ const NewEvent = ({}) => {
             body: JSON.stringify({
                 title: title,
                 description: description,
-                dateTime: formattedDateTime, // Use the formatted date string
+                dateTime: formattedDateTime,
             }),
         })
             .then(async (response) => {
@@ -42,7 +61,6 @@ const NewEvent = ({}) => {
             });
     };
 
-
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
             submitPost();
@@ -50,41 +68,50 @@ const NewEvent = ({}) => {
     };
 
     return (
-        <div>
-            <h2>New Post</h2>
-            <div>
-                <h3>Title:</h3>
-                <input
+        <StyledContainer component="main" maxWidth="xs">
+            <CssBaseline />
+            <StyledPaper elevation={3}>
+                <Typography variant="h5" gutterBottom>
+                    New Post
+                </Typography>
+                <TextField
+                    label="Title"
                     type="text"
+                    fullWidth
+                    required
                     value={title}
-                    required='true'
                     onChange={(e) => setTitle(e.target.value)}
                     onKeyPress={handleKeyPress}
                 />
-            </div>
-            <div>
-                <h3>Description:</h3>
-                <textarea
-                    rows="5"  // Adjust the number of rows to increase or decrease the size
-                    cols="40" // Adjust the number of columns to increase or decrease the size
+                <TextField
+                    label="Description"
+                    multiline
+                    rows={5}
+                    fullWidth
+                    required
                     value={description}
-                    required='true'
                     onChange={(e) => setDescription(e.target.value)}
                     onKeyPress={handleKeyPress}
                 />
-            </div>
-            <div>
-                <h3>Date and Time:</h3>
-                <input
+                <TextField
+                   
                     type="datetime-local"
+                    fullWidth
+                    required
+                    style={{ marginBottom: '10px' }}  // Adaugă spațiu între Date and Time și selectorul de data
                     value={dateTime}
-                    required='true'
                     onChange={(e) => setDateTime(e.target.value)}
                 />
-            </div>
-            <button onClick={submitPost}>Post</button>
-
-        </div>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    onClick={submitPost}
+                >
+                    Post
+                </Button>
+            </StyledPaper>
+        </StyledContainer>
     );
 };
 
