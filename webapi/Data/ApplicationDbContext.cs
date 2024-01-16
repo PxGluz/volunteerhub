@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MySql.EntityFrameworkCore;
 using webapi.Models;
 namespace webapi.Data;
 
@@ -19,7 +20,7 @@ public class ApplicationDbContext : DbContext
     {
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseSqlServer("Server=localhost;Database=master;Trusted_Connection=True;Encrypt=False");
+            optionsBuilder.UseSqlite("Data Source=volunteerhub.db");
         }
     }
     
