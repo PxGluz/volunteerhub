@@ -5,18 +5,9 @@ import Navbar from './Components/Navbar/Navbar';
 import LoginPage from './Pages/LoginPage/LoginPage';
 import { Navigate } from 'react-router-dom';
 import SignUpPage from './Pages/SignUpPage/SignUpPage';
+import Profile from "./Pages/Profile/Profile";
 
 function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-    const handleLogin = (username) => {
-        setIsLoggedIn(username);
-    };
-
-    const handleLogout = () => {
-        setIsLoggedIn(null);
-    };
-
     return (
         <Router>
             {/* Componenta Routes pentru a trata rutele */}
@@ -25,7 +16,7 @@ function App() {
                     path="/login"
                     element={
                         <>
-                            <LoginPage onLogin={handleLogin} />
+                            <LoginPage/>
                             {/* Navbar nu este afișat pe pagina de login */}
                         </>
                     }
@@ -34,7 +25,7 @@ function App() {
                     path="/signup"
                     element={
                         <>
-                            <SignUpPage onSignUp={handleLogin} />
+                            <SignUpPage/>
                             {/* Navbar nu este afișat pe pagina de signup */}
                         </>
                     }
@@ -43,11 +34,21 @@ function App() {
                     path="/dashboard"
                     element={
                         <>
-                            <Navbar loggedInUser={isLoggedIn} onLogout={handleLogout} />
+                            <Navbar/>
                             <Dashboard />
                         </>
                     }
                 />
+                <Route
+                    path="/profile/:id"
+                    element={
+                        <>
+                            <Navbar/>
+                            <Profile />
+                        </>
+                    }
+                />
+                
             </Routes>
         </Router>
     );

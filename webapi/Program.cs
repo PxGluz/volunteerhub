@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using webapi.Controllers;
 using webapi.Data;
 using webapi.Models;
 
@@ -10,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ApplicationDbContext>();
+builder.Services.AddHttpContextAccessor();
 
 // enable cors
 builder.Services.AddCors(options =>
@@ -55,7 +57,7 @@ app.MapGet("/api/user/GetUsers", (ApplicationDbContext context) =>
     .WithOpenApi();
 
 // map the signup endpoint
-app.MapPost("/api/user/SignUp", (ApplicationDbContext context, User user) =>
+app.MapPost("/api/user/SignUp", (ApplicationDbContext context, UserController.SignUpUser user) =>
     {
         // check if the username already exists
         var existingUser = context.Users.FirstOrDefault(u => u.Username == user.Username);
@@ -70,15 +72,25 @@ app.MapPost("/api/user/SignUp", (ApplicationDbContext context, User user) =>
             return Results.Unauthorized();
         }
 
-        context.Users.Add(user);
+        //create user object with id
+        User newUser = new()
+        {
+            Username = user.Username,
+            Password = user.Password,
+            Role = user.Role
+        };
+        
+        context.Users.Add(newUser);
         context.SaveChanges();
-        return Results.Created($"/api/user/SignUp/{user.UserId}", user);
+        
+        var token = TokenService.GenerateToken(newUser.Username);
+        return Results.Created($"/api/user/SignUp/{newUser.UserId}", token);
     })
     .WithName("SignUp")
     .WithOpenApi();
 
 // map the signin endpoint
-app.MapPost("/api/user/SignIn", (ApplicationDbContext context, User user) =>
+app.MapPost("/api/user/SignIn", (ApplicationDbContext context, UserController.SignInUser user) =>
     {
         // check if the username exists
         var existingUser = context.Users.FirstOrDefault(u => u.Username == user.Username);
@@ -93,10 +105,49 @@ app.MapPost("/api/user/SignIn", (ApplicationDbContext context, User user) =>
             return Results.Unauthorized();
         }
 
-        return Results.Ok(existingUser);
+        
+        var token = TokenService.GenerateToken(existingUser.Username);
+        return Results.Ok(token);
     })
     .WithName("SignIn")
     .WithOpenApi();
+
+// map the endpoint for getting an user by their id
+app.MapGet("/api/user/GetUserById/{id}", (ApplicationDbContext context, int id) =>
+    {
+        // Set the culture to the invariant culture before retrieving data
+
+        // Get the user from the database
+        var user = context.Users.FirstOrDefault(u => u.UserId == id);
+
+        if (user == null)
+        {
+            return Results.NotFound();
+        }
+
+        return Results.Ok(user);
+    })
+    .WithName("GetUserById")
+    .WithOpenApi();
+
+// map GetUserByToken endpoint
+app.MapGet("/api/user/GetUserByToken", (ApplicationDbContext context, IHttpContextAccessor httpContextAccessor) =>
+    {
+        //Get token from header
+        var token = httpContextAccessor.HttpContext.Request.Headers["Authorization"].ToString();
+
+        // Get the user from the database
+        var user = context.Users.FirstOrDefault(u => u.Username == TokenService.DecodeToken(token));
+
+        if (user == null)
+        {
+            return Results.NotFound();
+        }
+
+        return Results.Ok(user);
+    })
+.WithName("GetUserByToken")
+.WithOpenApi();
 
 app.Run();
 

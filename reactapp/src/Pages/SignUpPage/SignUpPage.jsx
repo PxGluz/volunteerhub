@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const SignUpPage = ({ onSignUp }) => {
+const SignUpPage = ({}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -23,7 +23,7 @@ const SignUpPage = ({ onSignUp }) => {
         // pick the value of the active radio button
         var role = 0;
         for (var i = 0, length = radios.length; i < length; i++) {
-            if (radios[i].checked == true) {
+            if (radios[i].checked === true) {
                 role = parseInt(radios[i].value);
                 break;
             }
@@ -45,7 +45,7 @@ const SignUpPage = ({ onSignUp }) => {
                 }
 
                 // Actualizează starea cu datele primite de la server
-                onSignUp(username);
+                localStorage.setItem('token', data);
                 navigate('/dashboard');
             })
             .catch((error) => {

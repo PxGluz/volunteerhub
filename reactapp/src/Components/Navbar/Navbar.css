@@ -25,9 +25,9 @@ a {
 }
 
 button {
-    background: none;
-    border: none;
-    color: white;
+    background: white;
+    border: #333;
+    color: #333;
     cursor: pointer;
 }
 

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using System.Diagnostics;
+using Azure.Identity;
+using Microsoft.AspNetCore.Cors;
 using webapi.Models;
 using webapi.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -59,7 +61,8 @@ public class UserController : ControllerBase
         };
         _context.Users.Add(newUser);
         _context.SaveChanges();
-        return StatusCode(StatusCodes.Status201Created, user);
+        var token = TokenService.GenerateToken(newUser.Username);
+        return StatusCode(StatusCodes.Status200OK, token);
     }
     
     public class SignInUser
@@ -84,7 +87,62 @@ public class UserController : ControllerBase
         {
             return StatusCode(StatusCodes.Status401Unauthorized, "Incorrect password");
         }
-        return StatusCode(StatusCodes.Status200OK, existingUser);
+        // also provide session token in response
+        var token = TokenService.GenerateToken(existingUser.Username);
+        //log the token in the console
+        return StatusCode(StatusCodes.Status200OK, token);
+    }
+    
+    public class ProfileUser
+    {
+        public int UserID { get; set; }
+        public string Username { get; set; }
+        public UserRole Role { get; set; }
+    }
+    
+    // get user by id function
+    [HttpGet]
+    [Route("GetUserById/{id}")]
+    public IActionResult GetUserById(int id)
+    {
+        // check if the user exists
+        var temp = _context.Users.FirstOrDefault(u => u.UserId == id);
+        if (temp == null)
+        {
+            return StatusCode(StatusCodes.Status404NotFound, "User does not exist");
+        }
+        // send just the username and role
+        ProfileUser user = new ProfileUser
+        {
+            Username = temp.Username,
+            Role = temp.Role
+        };
+        return StatusCode(StatusCodes.Status200OK, user);
+    }
+    
+    // get user by token function
+    [HttpGet]
+    [Route("GetUserByToken")]
+    public IActionResult GetUserByToken()
+    {
+        // get the token from the header
+        var token = Request.Headers["Authorization"].ToString();
+        // decode the token
+        var username = TokenService.DecodeToken(token);
+        // check if the user exists
+        var temp = _context.Users.FirstOrDefault(u => u.Username == username);
+        if (temp == null)
+        {
+            return StatusCode(StatusCodes.Status404NotFound, "User does not exist");
+        }
+        // send just the username and role
+        ProfileUser user = new ProfileUser
+        {
+            UserID = temp.UserId,
+            Username = temp.Username,
+            Role = temp.Role
+        };
+        return StatusCode(StatusCodes.Status200OK, user);
     }
     
 }

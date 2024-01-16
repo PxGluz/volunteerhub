@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css'
 
-const LoginPage = ({ onLogin }) => {
+const LoginPage = ({}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -29,7 +29,8 @@ const LoginPage = ({ onLogin }) => {
                 }
 
                 // Actualizează starea cu datele primite de la server
-                onLogin(username);
+                // register the session token to local storage
+                localStorage.setItem('token', data);
                 navigate('/dashboard');
             })
             .catch((error) => {
