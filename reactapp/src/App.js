@@ -6,6 +6,7 @@ import LoginPage from './Pages/LoginPage/LoginPage';
 import { Navigate } from 'react-router-dom';
 import SignUpPage from './Pages/SignUpPage/SignUpPage';
 import Profile from "./Pages/Profile/Profile";
+import NewPost from "./Pages/NewPostPage/NewPost";
 
 function App() {
     return (
@@ -31,7 +32,7 @@ function App() {
                     }
                 />
                 <Route
-                    path="/dashboard"
+                    path="/"
                     element={
                         <>
                             <Navbar/>
@@ -45,6 +46,14 @@ function App() {
                         <>
                             <Navbar/>
                             <Profile />
+                        </>
+                    }
+                />
+                <Route
+                    path="/newPost"
+                    element={
+                        <>
+                            <NewPost />
                         </>
                     }
                 />

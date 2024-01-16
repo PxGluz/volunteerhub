@@ -31,7 +31,7 @@ const LoginPage = ({}) => {
                 // Actualizează starea cu datele primite de la server
                 // register the session token to local storage
                 localStorage.setItem('token', data);
-                navigate('/dashboard');
+                navigate('/');
             })
             .catch((error) => {
                 setError(error.toString());

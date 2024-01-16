@@ -1,0 +1,11 @@
+.event{
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #ccc;
+    background-color: #fff;
+    color: #000;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}

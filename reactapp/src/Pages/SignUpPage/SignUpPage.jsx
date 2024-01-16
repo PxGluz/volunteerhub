@@ -46,7 +46,7 @@ const SignUpPage = ({}) => {
 
                 // Actualizează starea cu datele primite de la server
                 localStorage.setItem('token', data);
-                navigate('/dashboard');
+                navigate('/');
             })
             .catch((error) => {
                 setError(error.toString());

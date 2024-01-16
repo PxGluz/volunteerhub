@@ -49,11 +49,12 @@ const Navbar = ({}) => {
     return (
         <nav>
             <ul>
-                <li><Link to="/dashboard">VolunteerHub</Link></li>
+                <li><Link to="/">VolunteerHub</Link></li>
                 {authToken ? (
                     <li>
                         <Link to={`/profile/${user['userId']}`}>{user['username']}'s Profile</Link>
-                        <button onClick={() => {localStorage.removeItem('token');navigate('/dashboard');}}>Logout</button>
+                        {user['role'] !== 1 ? <button onClick={() => {navigate('/newPost');}}>New Post</button> : null}
+                        <button onClick={() => {localStorage.removeItem('token');navigate('/');}}>Logout</button>
                     </li>
                 ) : (
                     <>
