@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PostChecker from "../../Components/RoleCheckers/PostChecker";
 import {useNavigate} from "react-router-dom";
 
-const NewPost = ({}) => {
+const NewEvent = ({}) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [dateTime, setDateTime] = useState('');
@@ -57,6 +57,7 @@ const NewPost = ({}) => {
                 <input
                     type="text"
                     value={title}
+                    required='true'
                     onChange={(e) => setTitle(e.target.value)}
                     onKeyPress={handleKeyPress}
                 />
@@ -67,6 +68,7 @@ const NewPost = ({}) => {
                     rows="5"  // Adjust the number of rows to increase or decrease the size
                     cols="40" // Adjust the number of columns to increase or decrease the size
                     value={description}
+                    required='true'
                     onChange={(e) => setDescription(e.target.value)}
                     onKeyPress={handleKeyPress}
                 />
@@ -76,6 +78,7 @@ const NewPost = ({}) => {
                 <input
                     type="datetime-local"
                     value={dateTime}
+                    required='true'
                     onChange={(e) => setDateTime(e.target.value)}
                 />
             </div>
@@ -85,4 +88,4 @@ const NewPost = ({}) => {
     );
 };
 
-export default PostChecker(NewPost, [0, 2]);
+export default PostChecker(NewEvent, [0, 2]);

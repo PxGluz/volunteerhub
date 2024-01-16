@@ -11,8 +11,8 @@ using webapi.Data;
 namespace webapi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240116040129_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240116202507_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,36 +33,6 @@ namespace webapi.Migrations
                     b.HasIndex("EventId");
 
                     b.ToTable("EventApplicants", (string)null);
-                });
-
-            modelBuilder.Entity("EventUser1", b =>
-                {
-                    b.Property<int>("Event1EventId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("RejectedUsersUserId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Event1EventId", "RejectedUsersUserId");
-
-                    b.HasIndex("RejectedUsersUserId");
-
-                    b.ToTable("EventRejectedUsers", (string)null);
-                });
-
-            modelBuilder.Entity("EventUser2", b =>
-                {
-                    b.Property<int>("AcceptedUsersUserId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Event2EventId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("AcceptedUsersUserId", "Event2EventId");
-
-                    b.HasIndex("Event2EventId");
-
-                    b.ToTable("EventAcceptedUsers", (string)null);
                 });
 
             modelBuilder.Entity("webapi.Models.Event", b =>
@@ -125,36 +95,6 @@ namespace webapi.Migrations
                     b.HasOne("webapi.Models.Event", null)
                         .WithMany()
                         .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("EventUser1", b =>
-                {
-                    b.HasOne("webapi.Models.Event", null)
-                        .WithMany()
-                        .HasForeignKey("Event1EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("webapi.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("RejectedUsersUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("EventUser2", b =>
-                {
-                    b.HasOne("webapi.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("AcceptedUsersUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("webapi.Models.Event", null)
-                        .WithMany()
-                        .HasForeignKey("Event2EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

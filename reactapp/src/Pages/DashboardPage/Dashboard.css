@@ -9,3 +9,33 @@
     cursor: pointer;
     transition: all 0.3s ease-in-out;
 }
+
+.dashboard{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.eventList{
+    width: 80%;
+    margin-right: auto;
+}
+
+.leaderboard{
+    width: 20%;
+    margin: 5px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.volunteer{
+    width: 90%;
+    margin: 5px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    text-align: left;
+    color: black;
+    padding: 5px 10px;
+    box-shadow: 0 0 5px #ccc;
+}

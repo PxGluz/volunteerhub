@@ -35,15 +35,5 @@ public class ApplicationDbContext : DbContext
             .HasMany(e => e.Applicants)
             .WithMany()
             .UsingEntity(j => j.ToTable("EventApplicants"));
-
-        modelBuilder.Entity<Event>()
-            .HasMany(e => e.RejectedUsers)
-            .WithMany()
-            .UsingEntity(j => j.ToTable("EventRejectedUsers"));
-
-        modelBuilder.Entity<Event>()
-            .HasMany(e => e.AcceptedUsers)
-            .WithMany()
-            .UsingEntity(j => j.ToTable("EventAcceptedUsers"));
     }
 }

@@ -49,19 +49,21 @@ const Navbar = ({}) => {
     return (
         <nav>
             <ul>
-                <li><Link to="/">VolunteerHub</Link></li>
-                {authToken ? (
-                    <li>
-                        <Link to={`/profile/${user['userId']}`}>{user['username']}'s Profile</Link>
-                        {user['role'] !== 1 ? <button onClick={() => {navigate('/newPost');}}>New Post</button> : null}
-                        <button onClick={() => {localStorage.removeItem('token');navigate('/');}}>Logout</button>
-                    </li>
-                ) : (
-                    <>
-                        <li><Link to="/login">Login</Link></li>
-                        <li><Link to="/signup">Sign Up</Link></li>
-                    </>
-                )}
+                <li className='logo'><Link to="/">Volunteer<b>Hub</b></Link></li>
+                <div>
+                    {authToken ? (
+                        <li className='right-nav'>
+                            <Link className='profile' to={`/profile/${user['userID']}`}>{user['username']}'s Profile</Link>
+                            {user['role'] !== 1 ? <button onClick={() => {navigate('/newEvent');}}>New Event</button> : null}
+                            <button onClick={() => {localStorage.removeItem('token');navigate('/');}}>Logout</button>
+                        </li>
+                    ) : (
+                        <>
+                            <li><Link to="/login">Login</Link></li>
+                            <li><Link to="/signup">Sign Up</Link></li>
+                        </>
+                    )}
+                </div>
             </ul>
         </nav>
     );

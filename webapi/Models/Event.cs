@@ -11,6 +11,4 @@ public class Event
     public User Creator { get; set; }
 
     public List<User> Applicants { get; set; }
-    public List<User> RejectedUsers { get; set; }
-    public List<User> AcceptedUsers { get; set; }
 }

@@ -6,6 +6,7 @@ nav {
     background-color: #333;
     height: 60px;
     align-items: center;
+    width: 100%;
 }
 
 ul {
@@ -13,6 +14,7 @@ ul {
     display: flex;
     margin: 0;
     padding: 0;
+    width: 100%;
 }
 
 li {
@@ -36,7 +38,24 @@ li.active a, button {
     font-weight: bold;
 }
 
-    /* Adaugă aceste stiluri pentru a poziționa butonul de login în partea dreaptă */
-    button.login {
-        margin-left: auto;
-    }
+.logo {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+ul div{
+    display: flex;
+    justify-content: right;
+    width: 100%;
+
+    margin-top: auto;
+    margin-bottom: auto;
+}
+ul div button {
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+.profile {
+    margin-right: 5px;
+}

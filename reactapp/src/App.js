@@ -6,7 +6,9 @@ import LoginPage from './Pages/LoginPage/LoginPage';
 import { Navigate } from 'react-router-dom';
 import SignUpPage from './Pages/SignUpPage/SignUpPage';
 import Profile from "./Pages/Profile/Profile";
-import NewPost from "./Pages/NewPostPage/NewPost";
+import NewPost from "./Pages/EventPage/NewEvent";
+import Event from "./Pages/EventPage/Event";
+import EditEvent from "./Pages/EventPage/EditEvent";
 
 function App() {
     return (
@@ -50,10 +52,27 @@ function App() {
                     }
                 />
                 <Route
-                    path="/newPost"
+                    path="/event/:id"
+                    element={
+                        <>
+                            <Navbar/>
+                            <Event />
+                        </>
+                    }
+                />
+                <Route
+                    path="/newEvent"
                     element={
                         <>
                             <NewPost />
+                        </>
+                    }
+                />
+                <Route
+                    path="/editEvent/:id"
+                    element={
+                        <>
+                            <EditEvent />
                         </>
                     }
                 />

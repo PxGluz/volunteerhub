@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace webapi.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -49,30 +49,6 @@ namespace webapi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EventAcceptedUsers",
-                columns: table => new
-                {
-                    AcceptedUsersUserId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Event2EventId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EventAcceptedUsers", x => new { x.AcceptedUsersUserId, x.Event2EventId });
-                    table.ForeignKey(
-                        name: "FK_EventAcceptedUsers_Events_Event2EventId",
-                        column: x => x.Event2EventId,
-                        principalTable: "Events",
-                        principalColumn: "EventId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EventAcceptedUsers_Users_AcceptedUsersUserId",
-                        column: x => x.AcceptedUsersUserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "EventApplicants",
                 columns: table => new
                 {
@@ -96,44 +72,10 @@ namespace webapi.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "EventRejectedUsers",
-                columns: table => new
-                {
-                    Event1EventId = table.Column<int>(type: "INTEGER", nullable: false),
-                    RejectedUsersUserId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EventRejectedUsers", x => new { x.Event1EventId, x.RejectedUsersUserId });
-                    table.ForeignKey(
-                        name: "FK_EventRejectedUsers_Events_Event1EventId",
-                        column: x => x.Event1EventId,
-                        principalTable: "Events",
-                        principalColumn: "EventId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EventRejectedUsers_Users_RejectedUsersUserId",
-                        column: x => x.RejectedUsersUserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_EventAcceptedUsers_Event2EventId",
-                table: "EventAcceptedUsers",
-                column: "Event2EventId");
-
             migrationBuilder.CreateIndex(
                 name: "IX_EventApplicants_EventId",
                 table: "EventApplicants",
                 column: "EventId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_EventRejectedUsers_RejectedUsersUserId",
-                table: "EventRejectedUsers",
-                column: "RejectedUsersUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Events_CreatorUserId",
@@ -145,13 +87,7 @@ namespace webapi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "EventAcceptedUsers");
-
-            migrationBuilder.DropTable(
                 name: "EventApplicants");
-
-            migrationBuilder.DropTable(
-                name: "EventRejectedUsers");
 
             migrationBuilder.DropTable(
                 name: "Events");

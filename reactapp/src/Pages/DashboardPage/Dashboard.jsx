@@ -1,6 +1,7 @@
 ﻿import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Dashboard.css';
+import {Link} from "react-router-dom";
 
 const Dashboard = () => {
     const [volunteers, setVolunteers] = useState([]);
@@ -33,41 +34,28 @@ const Dashboard = () => {
     }, []);
 
     return (
-        <div>
-            <h2>All users</h2>
-            <table>
-                <thead>
-                <tr>
-                    <th>UserID</th>
-                    <th>Username</th>
-                    <th>Password</th>
-                    <th>Role</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {volunteers.map((item) => (
-                        <tr key={item['userId']}>
-                            <td>{item['userId']}</td>
-                            <td>{item['username']}</td>
-                            <td>{item['password']}</td>
-                            <td>{item['role']}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            <div>
-                <h2>All events</h2>
-                <table>
-                    <tbody>
-                        {events.map((item) => (
-                            <div className="event">
-                                <h3>{item['eventId']}.{item['title']}</h3>
-                                <p>{item['description']}</p>
-                                <h4>{item['creatorName']} - {item['dateTime']}</h4>
-                            </div>
-                        ))}
-                    </tbody>
-                </table>
+        <div className='dashboard'>
+            <div className='eventList'>
+                <h2>Upcoming events</h2>
+                {events.map((item) => (
+                    <Link to={`/event/${item['eventId']}`}>
+                        <div className="event">
+                            <h3>{item['eventId']}.{item['title']}</h3>
+                            <p>{item['description']}</p>
+                            <h4>{item['creatorName']} - {item['dateTime']}</h4>
+                        </div>
+                    </Link>
+                ))}
+            </div>
+            <div className='leaderboard'>
+                <h2>Leaderboard</h2>
+                {volunteers.map((item) => (
+                    <Link to={`/profile/${item['userId']}`}>
+                        <div className="volunteer">
+                            <h3>{item['userId']}. {item['username']}</h3>
+                        </div>
+                    </Link>
+                ))}
             </div>
         </div>
 );
