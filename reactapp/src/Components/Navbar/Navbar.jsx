@@ -58,11 +58,11 @@ const Navbar = () => {
                                     {user['username']}'s Profile
                                 </StyledLink>
                                 {user['role'] !== 1 ? (
-                                    <Button variant="contained" color="secondary" onClick={() => navigate('/newEvent')}>
+                                    <Button className="space" variant="contained" color="secondary" onClick={() => navigate('/newEvent')}>
                                         New Event
                                     </Button>
                                 ) : null}
-                                <Button variant="contained" color="secondary" onClick={() => { localStorage.removeItem('token'); navigate('/'); }}>
+                                <Button className="space" variant="contained" color="secondary" onClick={() => { localStorage.removeItem('token'); navigate('/'); }}>
                                     Logout
                                 </Button>
                             </>

@@ -72,7 +72,7 @@ const NewEvent = () => {
             <CssBaseline />
             <StyledPaper elevation={3}>
                 <Typography variant="h5" gutterBottom>
-                    New Post
+                    New Event
                 </Typography>
                 <TextField
                     label="Title"

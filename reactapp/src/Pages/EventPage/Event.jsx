@@ -27,14 +27,15 @@ const Event = () => {
                 if (response.ok) {
                     // No need to parse JSON from an empty response
                     // Proceed with the navigation or other actions
-                    navigate(`/event/${eventId}`);
+                    console.log(`/event/${eventId}`)
+                    navigate('/');
                 } else {
                     // Handle the case where the server responds with an error
                     return response.json().then((errorData) => Promise.reject(errorData));
                 }
             })
             .catch((error) => {
-                console.error('Există o eroare!', error);
+                alert(error);
             });
     };
     
@@ -72,11 +73,11 @@ const Event = () => {
         if (event['applicants'] !== undefined) {
             for (let i = 0; i < event['applicants'].length; i++) {
                 if (event['applicants'][i]['userId'] === user['userId']) {
-                    return true.toString();
+                    return true;
                 }
             }
         }
-        return false.toString();
+        return false;
     }
 
 

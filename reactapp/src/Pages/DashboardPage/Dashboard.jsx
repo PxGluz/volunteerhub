@@ -13,7 +13,6 @@ const StyledDashboard = styled(Container)(({ theme }) => ({
 }));
 
 const StyledSection = styled(Paper)(({ theme }) => ({
-    padding: '16px',
     textAlign: 'center',
     background: '#fafafa',
     margin: '0 16px', // Adaugă un spațiu între secțiuni
@@ -30,6 +29,7 @@ const StyledLink = styled(Link)({
         textDecoration: 'underline',
     },
 });
+
 
 
 const Dashboard = () => {
@@ -74,9 +74,9 @@ const Dashboard = () => {
                         <StyledLink to={`/event/${item['eventId']}`} key={item['eventId']}>
                             <ListItem button>
                                 <Typography variant="h6">{item['title']}</Typography>
-                                <Typography variant="body2">{item['description']}</Typography>
-                                <Typography variant="body2">
-                                    {item['creatorName']} - {item['dateTime']}
+                                <Typography variant="body2" className="space"> {item['description']}</Typography>
+                                <Typography variant="body2" className="space">
+                                     {item['creatorName']} - {item['dateTime']}
                                 </Typography>
                             </ListItem>
                             <Divider />

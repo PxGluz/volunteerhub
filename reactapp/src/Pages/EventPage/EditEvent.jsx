@@ -1,7 +1,23 @@
-import React, {useEffect, useState} from 'react';
-import PostChecker from "../../Components/RoleCheckers/PostChecker";
-import {useNavigate, useParams} from "react-router-dom";
-import OwnershipChecker from "../../Components/RoleCheckers/OwnershipChecker";
+import React, { useEffect, useState } from 'react';
+import {Button, TextField, TextareaAutosize, Typography, styled, Container, Paper, CssBaseline} from '@mui/material';
+import PostChecker from '../../Components/RoleCheckers/PostChecker';
+import { useNavigate, useParams } from 'react-router-dom';
+import OwnershipChecker from '../../Components/RoleCheckers/OwnershipChecker';
+
+const StyledContainer = styled(Container)({
+    marginTop: '20px',
+    marginBottom: '20px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+});
+
+const StyledPaper = styled(Paper)({
+    padding: '20px',
+    maxWidth: '600px',
+    width: '100%',
+    textAlign: 'center',
+});
 
 const EditEvent = ({}) => {
     const [title, setTitle] = useState('');
@@ -11,6 +27,7 @@ const EditEvent = ({}) => {
     const { id: eventId } = useParams();
 
     const authToken = localStorage.getItem('token');
+
     // get the data of the event to be edited from the server at localhost:5100/api/event/GetCreateEventData/{eventId}
     useEffect(() => {
         fetch(`http://localhost:5100/api/event/GetCreateEventData/${eventId}`, {
@@ -84,49 +101,57 @@ const EditEvent = ({}) => {
             });
     };
 
-
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
             confirmEdit();
         }
-    }
+    };
 
     return (
-        <>
-            <h2>Edit Event</h2>
-            <div>
-                <h3>Title:</h3>
-                <input
+        <StyledContainer component="main" maxWidth="xs">
+            <CssBaseline />
+            <StyledPaper elevation={3}>
+                <Typography variant="h5" gutterBottom>
+                    Edit Event
+                </Typography>
+                <TextField
+                    label="Title"
                     type="text"
+                    fullWidth
+                    required
                     value={title}
-                    required='true'
                     onChange={(e) => setTitle(e.target.value)}
                     onKeyPress={handleKeyPress}
                 />
-            </div>
-            <div>
-                <h3>Description:</h3>
-                <textarea
-                    rows="5"  // Adjust the number of rows to increase or decrease the size
-                    cols="40" // Adjust the number of columns to increase or decrease the size
+                <TextField
+                    label="Description"
+                    multiline
+                    rows={5}
+                    fullWidth
+                    required
                     value={description}
-                    required='true'
                     onChange={(e) => setDescription(e.target.value)}
                     onKeyPress={handleKeyPress}
                 />
-            </div>
-            <div>
-                <h3>Date and Time:</h3>
-                <input
+                <TextField
+
                     type="datetime-local"
+                    fullWidth
+                    required
+                    style={{ marginBottom: '10px' }}  // Adaugă spațiu între Date and Time și selectorul de data
                     value={dateTime}
-                    required='true'
                     onChange={(e) => setDateTime(e.target.value)}
                 />
-            </div>
-            <button onClick={confirmEdit}>Post</button>
-
-        </>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    onClick={confirmEdit}
+                >
+                    Confirm
+                </Button>
+            </StyledPaper>
+        </StyledContainer>
     );
 };
 
