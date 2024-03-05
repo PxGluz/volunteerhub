@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\.idea",
+    "\\src",
+    "\\src\\Components",
+    "\\src\\Components\\Navbar",
+    "\\src\\Pages",
+    "\\src\\Pages\\DashboardPage",
+    "\\src\\Pages\\EventPage",
+    "\\src\\Pages\\LoginPage",
+    "\\src\\Pages\\SignUpPage"
+  ],
+  "SelectedNode": "\\src\\Pages\\EventPage\\NewEvent.jsx",
+  "PreviewInSolutionExplorer": false
+}

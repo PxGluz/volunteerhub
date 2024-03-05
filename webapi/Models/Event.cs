@@ -1,4 +1,5 @@
-﻿public class Event
+﻿namespace webapi.Models;
+public class Event
 {
     public int EventId { get; set; }
     
@@ -10,6 +11,4 @@
     public User Creator { get; set; }
 
     public List<User> Applicants { get; set; }
-    public List<User> RejectedUsers { get; set; }
-    public List<User> AcceptedUsers { get; set; }
 }

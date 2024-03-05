@@ -1,0 +1,20 @@
+﻿.eventList, .leaderboard {
+    flex: 1;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+.eventList {
+    /* Elimină margin-right pentru a permite chenarului să se extindă pe întreaga lățime */
+}
+
+/* Adaugă o margine între secțiuni */
+.leaderboard {
+    margin-left: 20px;
+}
+
+.space {
+    padding-left: 10px;
+}

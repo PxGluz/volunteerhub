@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\BaddD\\source\\repos\\VolunteerHub2\\webapi\\webapi.csproj": {}
+    "C:\\Users\\PxGluz\\RiderProjects\\volunteerhub\\webapi\\webapi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\BaddD\\source\\repos\\VolunteerHub2\\webapi\\webapi.csproj": {
+    "C:\\Users\\PxGluz\\RiderProjects\\volunteerhub\\webapi\\webapi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\BaddD\\source\\repos\\VolunteerHub2\\webapi\\webapi.csproj",
+        "projectUniqueName": "C:\\Users\\PxGluz\\RiderProjects\\volunteerhub\\webapi\\webapi.csproj",
         "projectName": "webapi",
-        "projectPath": "C:\\Users\\BaddD\\source\\repos\\VolunteerHub2\\webapi\\webapi.csproj",
-        "packagesPath": "C:\\Users\\BaddD\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\BaddD\\source\\repos\\VolunteerHub2\\webapi\\obj\\",
+        "projectPath": "C:\\Users\\PxGluz\\RiderProjects\\volunteerhub\\webapi\\webapi.csproj",
+        "packagesPath": "C:\\Users\\PxGluz\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\PxGluz\\RiderProjects\\volunteerhub\\webapi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\BaddD\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\PxGluz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -38,6 +40,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Cors": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[8.0.1, )"
@@ -55,6 +61,22 @@
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[8.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "MySql.Data.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.22, )"
+            },
+            "MySql.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.0-preview, )"
+            },
+            "MySqlConnector": {
+              "target": "Package",
+              "version": "[2.3.4, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
